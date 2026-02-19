@@ -5,24 +5,22 @@ struct DashboardView: View {
     @Query(sort: [SortDescriptor(\DutyPeriod.startDate, order: .forward)])
     private var dutyPeriods: [DutyPeriod]
 
-    private var activeDuty: DutyPeriod? {
-        let now = Date()
-        return dutyPeriods.first { $0.startDate <= now && $0.endDate >= now } ?? dutyPeriods.first
-    }
-
-    private var nextLeg: FlightLeg? {
-        guard let activeDuty else { return nil }
-        let sorted = activeDuty.flightLegs.sorted(by: { $0.scheduledDeparture < $1.scheduledDeparture })
-        return sorted.first(where: { $0.scheduledArrival > .now }) ?? sorted.first
-    }
+    @StateObject private var viewModel = DashboardViewModel()
 
     var body: some View {
+        let duty = viewModel.activeDuty(in: dutyPeriods)
+        let nextLeg = viewModel.nextLeg(in: duty)
+
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                CurrentFlightReleaseCard(leg: nextLeg)
+                CurrentFlightReleaseCard(
+                    leg: nextLeg,
+                    progress: viewModel.progress(for: nextLeg),
+                    remainingText: viewModel.blockTimeRemaining(for: nextLeg)
+                )
 
-                if let activeDuty {
-                    DailyItineraryStrip(legs: activeDuty.flightLegs.sorted(by: { $0.scheduledDeparture < $1.scheduledDeparture }))
+                if duty != nil {
+                    DailyItineraryStrip(legs: viewModel.itinerary(for: duty))
                 } else {
                     ContentUnavailableView(
                         "No Duty Loaded",
@@ -40,20 +38,8 @@ struct DashboardView: View {
 
 private struct CurrentFlightReleaseCard: View {
     let leg: FlightLeg?
-
-    private var progress: Double {
-        guard let leg else { return 0 }
-        let total = leg.scheduledArrival.timeIntervalSince(leg.scheduledDeparture)
-        guard total > 0 else { return 0 }
-        let elapsed = Date().timeIntervalSince(leg.scheduledDeparture)
-        return min(max(elapsed / total, 0), 1)
-    }
-
-    private var remainingText: String {
-        guard let leg else { return "--" }
-        let remainingMinutes = max(Int(leg.scheduledArrival.timeIntervalSinceNow / 60), 0)
-        return "\(remainingMinutes / 60)h \(remainingMinutes % 60)m"
-    }
+    let progress: Double
+    let remainingText: String
 
     var body: some View {
         GroupBox {

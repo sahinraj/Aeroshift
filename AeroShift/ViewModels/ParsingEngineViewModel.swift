@@ -27,7 +27,9 @@ actor BidPackParsingActor {
 
         return lines.compactMap { line in
             // Expected lightweight format: F1234 JFK LAX 0545 0915 FLIGHT
-            let tokens = line.split(separator: " ").map(String.init)
+            let tokens = line
+                .split(whereSeparator: { $0.isWhitespace })
+                .map(String.init)
             guard tokens.count >= 6 else { return nil }
 
             let type = FlightLeg.LegType(rawValue: tokens[5].lowercased()) ?? .flight
@@ -36,12 +38,18 @@ actor BidPackParsingActor {
                 let arrival = formatter.date(from: tokens[4])
             else { return nil }
 
+            let mergedDeparture = merge(date: referenceDate, with: departure)
+            var mergedArrival = merge(date: referenceDate, with: arrival)
+            if mergedArrival < mergedDeparture {
+                mergedArrival = Calendar.current.date(byAdding: .day, value: 1, to: mergedArrival) ?? mergedArrival
+            }
+
             return ParsedLegDraft(
                 flightNumber: tokens[0],
                 origin: tokens[1],
                 destination: tokens[2],
-                departure: merge(date: referenceDate, with: departure),
-                arrival: merge(date: referenceDate, with: arrival),
+                departure: mergedDeparture,
+                arrival: mergedArrival,
                 type: type
             )
         }
@@ -76,6 +84,10 @@ actor ParsingStore {
         let existingMonth = try modelContext.fetch(descriptor).first
         let rosterMonth = existingMonth ?? RosterMonth(month: month, year: year)
 
+        if existingMonth == nil {
+            modelContext.insert(rosterMonth)
+        }
+
         let dutyStart = drafts.map(\.departure).min() ?? date
         let dutyEnd = drafts.map(\.arrival).max() ?? date
         let totalBlockMinutes = drafts.reduce(into: 0) { partialResult, draft in
@@ -88,6 +100,7 @@ actor ParsingStore {
             totalBlockMinutes: totalBlockMinutes,
             rosterMonth: rosterMonth
         )
+        modelContext.insert(duty)
 
         drafts.forEach { draft in
             let leg = FlightLeg(
@@ -99,13 +112,11 @@ actor ParsingStore {
                 legType: draft.type,
                 dutyPeriod: duty
             )
+            modelContext.insert(leg)
             duty.flightLegs.append(leg)
         }
 
         rosterMonth.dutyPeriods.append(duty)
-
-        modelContext.insert(rosterMonth)
-        modelContext.insert(duty)
         try modelContext.save()
     }
 }

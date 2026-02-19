@@ -1,30 +1,23 @@
 # AeroShift iOS Application README
 
 ## Product Vision
-AeroShift aims to revolutionize the way users interact with their environments through intuitive design and seamless functionality. Our vision is to create a user-friendly application that enhances the user's experience by seamlessly integrating advanced technology with everyday tasks.
+AeroShift is an offline-first iPadOS and iOS application for flight crews to ingest bid packs and releases, organize duty timelines locally, and monitor active duty with a native dashboard.
 
 ## Core Features
-- **User-Friendly Interface:** Designed using SwiftUI for a responsive experience.
-- **Real-Time Data Processing:** Efficiently manage and process data with SwiftData.
-- **Seamless Integrations:** Connect with third-party services to extend functionality.
-- **Robust Security Measures:** Ensuring user data protection and privacy.
+- **Offline-first architecture:** All ingestion, persistence, and display workflows operate without network access.
+- **Native SwiftUI dashboard:** iPad-first split-view layout with active duty context and itinerary cards.
+- **Local parsing pipeline:** Raw text imports are parsed in background actors and persisted with SwiftData.
+- **Live surfaces foundation:** App Intents and Live Activity attribute scaffolding for lock screen and dynamic updates.
 
-## Technical Architecture
-### Swift 6 and SwiftUI
-- Leveraging the latest advancements in Swift 6 for better performance.
-- Utilizing SwiftUI for building a declarative UI that reacts to state changes and provides a modern user experience.
+## Technical Stack
+- **Swift 6**
+- **SwiftUI**
+- **SwiftData**
+- **Combine**
+- **MVVM**
 
-### Data Persistence with SwiftData
-- Implementing SwiftData for local data management allows for efficient data retrieval and effortless syncing with the cloud.
-
-### System Integrations
-- Integrating APIs and services to enhance the application’s features and provide users with a richer experience.
-
-## Coding Standards
-- Follow the Clean Code principles to ensure maintainability.
-- Adhere to Swift's best practices for naming conventions, code structure, and documentation.
-
-## Future Roadmap
-- **Q2 2026:** Launch beta version for user feedback.
-- **Q3 2026:** Implement machine learning features for predictive analytics.
-- **Q4 2026:** Expand to additional platforms beyond iOS.
+## Principles
+- Never block the main thread for parsing or batch inserts.
+- Keep business logic in ViewModels / actors, not views.
+- Use semantic spacing, native typography, and adaptive system backgrounds.
+- Make zero external network calls by default.
