@@ -83,7 +83,7 @@ private struct CurrentFlightReleaseCard: View {
                 .padding(.horizontal, 8)
                 .background(
                     LinearGradient(
-                        colors: [.oceanBlue, .primaryBrand],
+                        colors: [Color.oceanBlue, Color.primaryBrand],
                         startPoint: .leading,
                         endPoint: .trailing
                     )
@@ -99,7 +99,7 @@ private struct DailyItineraryStrip: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 12) {
-                ForEach(legs) { leg in
+                ForEach(legs, id: \.id) { leg in
                     VStack(alignment: .leading, spacing: 8) {
                         Text(leg.flightNumber)
                             .font(.headline)
@@ -111,14 +111,14 @@ private struct DailyItineraryStrip: View {
                             .font(.caption.weight(.medium))
                             .padding(.horizontal, 8)
                             .padding(.vertical, 4)
-                            .background(.primaryBrand.opacity(0.12), in: Capsule())
+                            .background(Color.primaryBrand.opacity(0.12), in: Capsule())
                     }
                     .frame(width: 180, alignment: .leading)
                     .padding()
                     .background(Color.adaptiveCardBackground, in: RoundedRectangle(cornerRadius: 14))
                     .overlay {
                         RoundedRectangle(cornerRadius: 14)
-                            .stroke(.oceanBlue.opacity(0.4), lineWidth: 1)
+                            .stroke(Color.oceanBlue.opacity(0.4), lineWidth: 1)
                     }
                 }
             }

@@ -55,7 +55,7 @@ private struct PlaceholderView: View {
         VStack(spacing: 12) {
             Image(systemName: "airplane")
                 .font(.largeTitle)
-                .foregroundStyle(.oceanBlue)
+                .foregroundStyle(Color.oceanBlue)
             Text(title)
                 .font(.title2.weight(.semibold))
             Text("Offline mode ready.")
