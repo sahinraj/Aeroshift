@@ -32,7 +32,7 @@ struct DashboardView: View {
             .padding()
         }
         .navigationTitle("Active Duty")
-        .background(Color.adaptiveCanvasBackground)
+        .background(Color.adaptiveCanvasBackground as Color?)
     }
 }
 
@@ -71,13 +71,13 @@ private struct CurrentFlightReleaseCard: View {
                     .font(.headline)
 
                 ProgressView(value: progress)
-                    .tint(.primaryBrand)
+                    .tint(Color.PrimaryBrand)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         } label: {
             Text("Current Flight Release")
                 .font(.title3.weight(.semibold))
-                .foregroundStyle(.white)
+                .foregroundStyle(Color.PrimaryBrand)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.vertical, 6)
                 .padding(.horizontal, 8)
@@ -126,3 +126,4 @@ private struct DailyItineraryStrip: View {
         }
     }
 }
+

@@ -21,7 +21,7 @@ struct ParsingEngineView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 .overlay {
                     RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.oceanBlue.opacity(0.35), lineWidth: 1)
+                        .stroke(Color.OceanBlue.opacity(0.35), lineWidth: 1)
                 }
 
             HStack(spacing: 12) {
@@ -30,7 +30,7 @@ struct ParsingEngineView: View {
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.borderedProminent)
-                .tint(.primaryBrand)
+                .tint(Color.PrimaryBrand)
                 .disabled(viewModel.isImporting)
 
                 if viewModel.isImporting {
@@ -47,6 +47,6 @@ struct ParsingEngineView: View {
         }
         .padding()
         .navigationTitle("Bid Pack Archive")
-        .background(Color.adaptiveCanvasBackground)
+        .background(Color.adaptiveCanvasBackground as Color?)
     }
 }

@@ -1,10 +1,17 @@
 import Foundation
 import Combine
 import SwiftUI
+#if canImport(ActivityKit)
+import ActivityKit
+#endif
 
 @MainActor
 final class DashboardViewModel: ObservableObject {
     
+    #if canImport(ActivityKit)
+    private var dutyActivity: Activity<ActiveDutyActivityAttributes>?
+    #endif
+
     func activeDuty(in periods: [DutyPeriod], now: Date = .now) -> DutyPeriod? {
         periods.first(where: { $0.startDate <= now && $0.endDate >= now }) ?? periods.first
     }
@@ -32,5 +39,35 @@ final class DashboardViewModel: ObservableObject {
         let remainingMinutes = max(Int(leg.scheduledArrival.timeIntervalSince(now) / 60), 0)
         return "\(remainingMinutes / 60)h \(remainingMinutes % 60)m"
     }
+
+    #if canImport(ActivityKit)
+    @available(iOS 16.1, *)
+    func startLiveActivity(for leg: FlightLeg?) async {
+        guard let leg = leg else { return }
+        let route = "\(leg.origin) → \(leg.destination)"
+        let totalMinutes = max(Int(leg.scheduledArrival.timeIntervalSince(leg.scheduledDeparture) / 60), 1)
+        self.dutyActivity = await LiveActivityManager.shared.startDutyActivity(
+            flightNumber: leg.flightNumber,
+            route: route,
+            totalBlockMinutes: totalMinutes
+        )
+    }
+    @available(iOS 16.1, *)
+    func refreshLiveActivity(for leg: FlightLeg?) async {
+        guard let leg = leg, let activity = dutyActivity else { return }
+        await LiveActivityManager.shared.updateForLeg(
+            activity: activity,
+            departure: leg.scheduledDeparture,
+            arrival: leg.scheduledArrival
+        )
+    }
+
+    @available(iOS 16.1, *)
+    func endLiveActivity() async {
+        guard let activity = dutyActivity else { return }
+        await LiveActivityManager.shared.end(activity: activity)
+        dutyActivity = nil
+    }
+    #endif
 }
 

@@ -6,7 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		B09F28342F482E5500711ACE /* AeroShiftLiveActivityWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09F28332F482E5500711ACE /* AeroShiftLiveActivityWidget.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		B09F28332F482E5500711ACE /* AeroShiftLiveActivityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeroShiftLiveActivityWidget.swift; sourceTree = "<group>"; };
 		B0E12C042F48261900FD19B5 /* Aeroshift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aeroshift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -34,6 +39,7 @@
 			children = (
 				B0E12C062F48261900FD19B5 /* Aeroshift */,
 				B0E12C052F48261900FD19B5 /* Products */,
+				B09F28332F482E5500711ACE /* AeroShiftLiveActivityWidget.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -119,6 +125,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B09F28342F482E5500711ACE /* AeroShiftLiveActivityWidget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
