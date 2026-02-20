@@ -21,7 +21,7 @@ struct ParsingEngineView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 .overlay {
                     RoundedRectangle(cornerRadius: 12)
-                        .stroke(.oceanBlue.opacity(0.35), lineWidth: 1)
+                        .stroke(Color.oceanBlue.opacity(0.35), lineWidth: 1)
                 }
 
             HStack(spacing: 12) {

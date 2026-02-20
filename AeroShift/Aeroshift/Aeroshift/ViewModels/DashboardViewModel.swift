@@ -1,7 +1,10 @@
 import Foundation
+import Combine
+import SwiftUI
 
 @MainActor
 final class DashboardViewModel: ObservableObject {
+    
     func activeDuty(in periods: [DutyPeriod], now: Date = .now) -> DutyPeriod? {
         periods.first(where: { $0.startDate <= now && $0.endDate >= now }) ?? periods.first
     }
@@ -30,3 +33,4 @@ final class DashboardViewModel: ObservableObject {
         return "\(remainingMinutes / 60)h \(remainingMinutes % 60)m"
     }
 }
+
