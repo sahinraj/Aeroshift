@@ -20,6 +20,8 @@ AeroShift is not affiliated with, sponsored by, endorsed by, or developed for Fe
 - **Local data controls:** Synthetic sample data and delete-all-local-data actions support safe development and privacy-conscious testing.
 - **Test coverage foundation:** Parser and dashboard-selection tests live in a dedicated `AeroshiftTests` target.
 - **Live surfaces:** A dedicated WidgetKit extension target hosts the Live Activity UI and shares only ActivityKit attributes and theme code.
+- **Showcase demo:** One local action seeds a repeatable synthetic roster with active, upcoming, history, and widget-ready states for safe demonstrations.
+- **Build confidence:** A shared Xcode scheme and macOS GitHub Actions workflow build the app and run the test target on an iOS Simulator.
 - **Privacy manifest:** The app declares no tracking, collected data types, or required-reason API categories.
 
 ## Technical Stack
@@ -40,3 +42,17 @@ AeroShift is not affiliated with, sponsored by, endorsed by, or developed for Fe
 - No network, analytics, account, or employer-service integration is part of the baseline.
 - Use synthetic or personally owned sample data while developing and testing.
 - See [SECURITY.md](SECURITY.md) for the repository’s personal-project safety boundary and accidental-exposure procedure.
+
+## Portfolio walkthrough
+
+1. Open Settings and select **Load Showcase Demo**.
+2. Review the Active Duty dashboard and Live Activity controls.
+3. Open Upcoming Rotations to inspect the second synthetic duty.
+4. Open Bid Pack Archive to review import history and parser behavior.
+5. Capture screenshots in both light and dark appearance using only the synthetic `DEMO###` records.
+
+See [docs/SHOWCASE.md](docs/SHOWCASE.md) for the recommended demo narrative and screenshot checklist.
+
+## Product page
+
+The polished product presentation lives at [AeroShift Product Page](https://sahinraj.github.io/Aeroshift/) and is sourced from [docs/index.html](docs/index.html). GitHub Pages deployment is configured through Actions after the repository’s Pages source is set to GitHub Actions.
