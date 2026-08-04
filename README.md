@@ -20,6 +20,7 @@ AeroShift is not affiliated with, sponsored by, endorsed by, or developed for Fe
 - **Local data controls:** Synthetic sample data and delete-all-local-data actions support safe development and privacy-conscious testing.
 - **Test coverage foundation:** Parser and dashboard-selection tests live in a dedicated `AeroshiftTests` target.
 - **Live surfaces:** A dedicated WidgetKit extension target hosts the Live Activity UI and shares only ActivityKit attributes and theme code.
+- **Privacy manifest:** The app declares no tracking, collected data types, or required-reason API categories.
 
 ## Technical Stack
 - **Swift (Swift 5 language mode in the Xcode project)**
@@ -38,3 +39,4 @@ AeroShift is not affiliated with, sponsored by, endorsed by, or developed for Fe
 - Imported text and parsed roster data remain on the device.
 - No network, analytics, account, or employer-service integration is part of the baseline.
 - Use synthetic or personally owned sample data while developing and testing.
+- See [SECURITY.md](SECURITY.md) for the repository’s personal-project safety boundary and accidental-exposure procedure.
