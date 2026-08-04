@@ -31,6 +31,7 @@ jobs:
             exit 1
           fi
 
+          export AEROSHIFT_IN_MEMORY_STORE=1
           xcodebuild \
             -project Aeroshift.xcodeproj \
             -scheme Aeroshift \
