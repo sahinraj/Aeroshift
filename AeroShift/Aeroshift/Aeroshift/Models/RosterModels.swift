@@ -65,6 +65,18 @@ final class FlightLeg {
         set { legTypeRawValue = newValue.rawValue }
     }
 
+    /// Stable local identity used to avoid importing the same leg more than once.
+    var dedupeKey: String {
+        [
+            flightNumber.uppercased(),
+            origin.uppercased(),
+            destination.uppercased(),
+            String(scheduledDeparture.timeIntervalSinceReferenceDate),
+            String(scheduledArrival.timeIntervalSinceReferenceDate),
+            legTypeRawValue.lowercased()
+        ].joined(separator: "|")
+    }
+
     init(
         flightNumber: String,
         origin: String,

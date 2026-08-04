@@ -46,7 +46,7 @@ struct RootSplitView: View {
             case .bidPackArchive:
                 ParsingEngineView(modelContainer: modelContainer)
             case .settings:
-                PlaceholderView(title: "Settings")
+                SettingsView()
             }
         }
         .navigationDestination(for: SidebarDestination.self) { destination in
@@ -58,7 +58,7 @@ struct RootSplitView: View {
             case .bidPackArchive:
                 ParsingEngineView(modelContainer: modelContainer)
             case .settings:
-                PlaceholderView(title: "Settings")
+                SettingsView()
             }
         }
         .tint(Color.PrimaryBrand)

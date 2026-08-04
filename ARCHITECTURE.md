@@ -30,6 +30,18 @@ AeroShift is an offline-first personal iPadOS/iOS app built with Swift in strict
   - Block-time progress
   - Horizontal itinerary strip
 
+## Import lifecycle
+1. Raw text is parsed off the main actor.
+2. Valid legs and line-specific parsing issues are shown in an import review.
+3. The user explicitly confirms the review before persistence.
+4. `ParsingStore` compares stable local keys and skips duplicate legs.
+
+## Local data controls
+Settings provides synthetic sample data for development and a confirmed delete-all flow for local roster records. These actions are device-local and do not export or transmit data.
+
+## Testing
+The `AeroshiftTests` target covers overnight parsing, actionable parser issues, duty selection, and in-progress leg selection. Fixtures use synthetic identifiers and routes.
+
 ## Networking
 No external network calls are required for core functionality. The baseline implementation assumes airplane mode or zero-trust conditions.
 
