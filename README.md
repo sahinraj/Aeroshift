@@ -52,3 +52,7 @@ AeroShift is not affiliated with, sponsored by, endorsed by, or developed for Fe
 5. Capture screenshots in both light and dark appearance using only the synthetic `DEMO###` records.
 
 See [docs/SHOWCASE.md](docs/SHOWCASE.md) for the recommended demo narrative and screenshot checklist.
+
+## Product page
+
+The polished product presentation lives at [AeroShift Product Page](https://sahinraj.github.io/Aeroshift/) and is sourced from [docs/index.html](docs/index.html). GitHub Pages deployment is configured through Actions after the repository’s Pages source is set to GitHub Actions.

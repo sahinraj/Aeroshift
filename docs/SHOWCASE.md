@@ -2,6 +2,8 @@
 
 This guide keeps portfolio demonstrations repeatable, technically honest, and separated from employer data.
 
+The polished public presentation is available at the [AeroShift Product Page](index.html) when GitHub Pages is enabled for this repository.
+
 ## Demo narrative
 
 1. **Problem:** Roster information is difficult to review when it is scattered across text and calendar-like views.

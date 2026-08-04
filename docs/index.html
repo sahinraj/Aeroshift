@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071b2b">
+  <meta name="description" content="AeroShift is an offline-first SwiftUI roster companion built for calm, reviewable duty planning.">
+  <meta property="og:title" content="AeroShift — Make your roster legible">
+  <meta property="og:description" content="An offline-first SwiftUI and SwiftData roster companion with reviewable imports, local history, dashboard states, and Live Activities.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://sahinraj.github.io/Aeroshift/assets/aeroshift-icon.png">
+  <meta name="twitter:card" content="summary">
+  <title>AeroShift — Make your roster legible</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="AeroShift home">
+        <img src="assets/aeroshift-icon.png" alt="" width="42" height="42">
+        <span>
+          <strong>AeroShift</strong>
+          <small>Roster clarity, locally</small>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="#workflow">Workflow</a>
+        <a href="#engineering">Engineering</a>
+        <a href="#demo">Demo</a>
+        <a class="nav-cta" href="https://github.com/sahinraj/Aeroshift">View repository <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero section-grid">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="status-dot"></span> Offline-first personal iOS project</div>
+          <h1>Make your roster <em>legible.</em></h1>
+          <p class="hero-lede">AeroShift turns dense roster text into a calm, reviewable view of what is active, what is next, and what stays safely on your device.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#demo">Explore the demo <span aria-hidden="true">↓</span></a>
+            <a class="button button-quiet" href="https://github.com/sahinraj/Aeroshift">Read the source <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="tech-line" aria-label="Technology stack">
+            <span>SwiftUI</span><i>·</i><span>SwiftData</span><i>·</i><span>ActivityKit</span><i>·</i><span>iOS</span>
+          </div>
+        </div>
+
+        <div class="product-preview" aria-label="AeroShift active duty dashboard preview">
+          <div class="preview-glow"></div>
+          <div class="preview-window">
+            <div class="preview-topbar">
+              <span class="window-dots"><i></i><i></i><i></i></span>
+              <span class="preview-label">ACTIVE DUTY</span>
+              <span class="offline-chip"><span class="status-dot"></span> Local</span>
+            </div>
+            <div class="preview-content">
+              <div class="preview-kicker">CURRENT FLIGHT RELEASE</div>
+              <div class="route-line"><strong>AAA</strong><span class="route-arrow">→</span><strong>BBB</strong></div>
+              <div class="preview-meta"><span>DEMO123</span><span>Flight · 08:00</span></div>
+              <div class="progress-row"><span>Block time remaining</span><strong>0h 42m</strong></div>
+              <div class="progress-track"><span></span></div>
+              <div class="preview-divider"></div>
+              <div class="preview-kicker">UP NEXT</div>
+              <div class="next-row"><span class="next-icon">↗</span><span><strong>BBB → CCC</strong><small>DEMO124 · 10:00</small></span><span class="next-time">01:18</span></div>
+            </div>
+          </div>
+          <div class="preview-note"><span class="note-mark">✦</span> Review before save. Keep the signal.</div>
+        </div>
+      </section>
+
+      <section class="trust-strip" aria-label="Product principles">
+        <div><strong>100%</strong><span>local-first baseline</span></div>
+        <div><strong>3</strong><span>clear dashboard states</span></div>
+        <div><strong>0</strong><span>accounts or network calls</span></div>
+        <div><strong>1</strong><span>calm source of truth</span></div>
+      </section>
+
+      <section class="content-section" id="workflow">
+        <div class="section-heading">
+          <div class="eyebrow">The product loop</div>
+          <h2>From raw text to a ready duty.</h2>
+          <p>AeroShift is designed around the moment where confidence matters: before imported information becomes something you rely on.</p>
+        </div>
+        <div class="workflow-grid">
+          <article class="workflow-card">
+            <span class="step-number">01</span>
+            <div class="card-icon">⌁</div>
+            <h3>Paste and parse</h3>
+            <p>Text is parsed away from the main actor. Valid legs and line-specific issues stay visible instead of disappearing into a black box.</p>
+            <div class="mini-code"><span>DEMO123</span> AAA → BBB <small>0800 0900 · flight</small></div>
+          </article>
+          <article class="workflow-card featured-card">
+            <span class="step-number">02</span>
+            <div class="card-icon">✓</div>
+            <h3>Review before save</h3>
+            <p>Confirm the import only after seeing the duty groups, routes, timing, duplicates, and actionable parsing issues.</p>
+            <div class="mini-review"><span class="check">✓</span><span>2 duties ready</span><strong>Confirm</strong></div>
+          </article>
+          <article class="workflow-card">
+            <span class="step-number">03</span>
+            <div class="card-icon">◌</div>
+            <h3>See the next decision</h3>
+            <p>Active duty, upcoming rotation, and import history are separate surfaces so the app can say exactly what it knows.</p>
+            <div class="mini-states"><span class="active-state">Active</span><span>Upcoming</span><span>History</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="content-section split-section" id="engineering">
+        <div class="section-heading compact-heading">
+          <div class="eyebrow">Built like a real iOS product</div>
+          <h2>Small surfaces. Strong boundaries.</h2>
+          <p>The feature set is intentionally focused, but the engineering choices are deliberate and demonstrable.</p>
+        </div>
+        <div class="feature-list">
+          <article class="feature-item"><span class="feature-symbol">◎</span><div><h3>Actor-isolated ingestion</h3><p>Background parsing and a SwiftData model actor keep long imports away from UI interactions.</p></div></article>
+          <article class="feature-item"><span class="feature-symbol">▦</span><div><h3>Local history with cleanup</h3><p>Each confirmed import is a batch, making the archive inspectable and deletable as a unit.</p></div></article>
+          <article class="feature-item"><span class="feature-symbol">◒</span><div><h3>State-aware dashboard</h3><p>Progress is shown for active flights; scheduled departure is shown for upcoming ones.</p></div></article>
+          <article class="feature-item"><span class="feature-symbol">⌁</span><div><h3>Glanceable Live Activity</h3><p>ActivityKit surfaces the current route and progress without sharing roster persistence with the extension.</p></div></article>
+        </div>
+      </section>
+
+      <section class="architecture-section">
+        <div class="architecture-copy">
+          <div class="eyebrow">A calm architecture</div>
+          <h2>Every boundary has a job.</h2>
+          <p>Inputs become drafts, drafts become reviewed batches, and batches become local views. The system stays understandable because each step has a clear owner.</p>
+          <a class="text-link" href="https://github.com/sahinraj/Aeroshift/blob/main/ARCHITECTURE.md">Read the architecture notes <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="architecture-map" aria-label="AeroShift architecture flow">
+          <div class="arch-node source-node"><small>INPUT</small><strong>Roster text</strong><span>user-provided</span></div>
+          <div class="arch-connector"><span>actor</span><i>→</i></div>
+          <div class="arch-node parse-node"><small>REVIEW</small><strong>ParseResult</strong><span>issues + drafts</span></div>
+          <div class="arch-connector"><span>confirm</span><i>→</i></div>
+          <div class="arch-node store-node"><small>LOCAL</small><strong>SwiftData</strong><span>batches + duties</span></div>
+          <div class="arch-connector"><span>query</span><i>→</i></div>
+          <div class="arch-node view-node"><small>SURFACE</small><strong>Dashboard</strong><span>iOS + widget</span></div>
+        </div>
+      </section>
+
+      <section class="content-section demo-section" id="demo">
+        <div class="demo-panel">
+          <div class="demo-copy">
+            <div class="eyebrow">Safe to show</div>
+            <h2>One tap to tell the story.</h2>
+            <p>The Settings screen includes a synthetic showcase roster with an active duty, an upcoming rotation, and import history. It is built for demos, screenshots, and portfolio review without employer data.</p>
+            <ol class="demo-steps">
+              <li><span>1</span><strong>Load Showcase Demo</strong><small>Settings → Local Data</small></li>
+              <li><span>2</span><strong>Walk the product loop</strong><small>Dashboard → Rotations → Archive</small></li>
+              <li><span>3</span><strong>Show the boundary</strong><small>Local-only storage + delete controls</small></li>
+            </ol>
+            <a class="button button-primary" href="https://github.com/sahinraj/Aeroshift/blob/main/README.md">Read the walkthrough <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="demo-screen">
+            <div class="screen-header"><span>Settings</span><span>•••</span></div>
+            <div class="screen-section"><small>PRIVACY</small><div class="privacy-row"><span class="lock-icon">▣</span><span><strong>Local-only storage</strong><em>No account or network required</em></span><b>✓</b></div></div>
+            <div class="screen-section"><small>LOCAL DATA</small><div class="data-row"><span>Import batches</span><strong>1</strong></div><div class="data-row"><span>Duty periods</span><strong>2</strong></div><div class="data-row"><span>Flight legs</span><strong>4</strong></div><button>Load Showcase Demo</button></div>
+            <div class="screen-foot">Synthetic data only · Ready for review</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="closing-section">
+        <div class="closing-mark"><img src="assets/aeroshift-icon.png" alt="AeroShift icon" width="74" height="74"></div>
+        <div>
+          <div class="eyebrow">A personal project with a professional standard</div>
+          <h2>Useful software should feel calm.</h2>
+          <p>AeroShift is an independent exploration of local-first product design, modern Apple frameworks, and trustworthy interfaces.</p>
+        </div>
+        <a class="button button-primary" href="https://github.com/sahinraj/Aeroshift">Explore AeroShift <span aria-hidden="true">↗</span></a>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div><strong>AeroShift</strong><span>Offline-first roster clarity</span></div>
+      <div class="footer-links"><a href="https://github.com/sahinraj/Aeroshift/blob/main/README.md">README</a><a href="https://github.com/sahinraj/Aeroshift/blob/main/SECURITY.md">Security</a><a href="https://github.com/sahinraj/Aeroshift/blob/main/ARCHITECTURE.md">Architecture</a><a href="https://github.com/sahinraj/Aeroshift">GitHub ↗</a></div>
+      <p>A standalone personal project. Not affiliated with, sponsored by, endorsed by, or developed for FedEx Corporation, its subsidiaries, or any employer.</p>
+    </footer>
+  </div>
+</body>
+</html>
