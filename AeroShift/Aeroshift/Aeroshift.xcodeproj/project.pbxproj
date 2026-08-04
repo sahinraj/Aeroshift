@@ -7,11 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B0E12C202F48261900FD19B5 /* AeroShiftLiveActivityWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E12C232F48261900FD19B5 /* AeroShiftLiveActivityWidget.swift */; };
+		B0E12C212F48261900FD19B5 /* ActiveDutyActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E12C242F48261900FD19B5 /* ActiveDutyActivityAttributes.swift */; };
+		B0E12C222F48261900FD19B5 /* Color+Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E12C252F48261900FD19B5 /* Color+Brand.swift */; };
+		B0E12C2F2F48261900FD19B5 /* AeroShiftWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B0E12C262F48261900FD19B5 /* AeroShiftWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B0E12C042F48261900FD19B5 /* Aeroshift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aeroshift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0E12C142F48261900FD19B5 /* AeroshiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AeroshiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0E12C232F48261900FD19B5 /* AeroShiftLiveActivityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeroShiftLiveActivityWidget.swift; sourceTree = "<group>"; };
+		B0E12C242F48261900FD19B5 /* ActiveDutyActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Aeroshift/Extensions/ActiveDutyActivityAttributes.swift"; sourceTree = "<group>"; };
+		B0E12C252F48261900FD19B5 /* Color+Brand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Aeroshift/Theme/Color+Brand.swift"; sourceTree = "<group>"; };
+		B0E12C262F48261900FD19B5 /* AeroShiftWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AeroShiftWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -50,6 +58,7 @@
 			children = (
 				B0E12C062F48261900FD19B5 /* Aeroshift */,
 				B0E12C152F48261900FD19B5 /* AeroshiftTests */,
+				B0E12C272F48261900FD19B5 /* AeroShiftWidgetExtension */,
 				B0E12C052F48261900FD19B5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -59,8 +68,19 @@
 			children = (
 				B0E12C042F48261900FD19B5 /* Aeroshift.app */,
 				B0E12C142F48261900FD19B5 /* AeroshiftTests.xctest */,
+				B0E12C262F48261900FD19B5 /* AeroShiftWidgetExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B0E12C272F48261900FD19B5 /* AeroShiftWidgetExtension */ = {
+			isa = PBXGroup;
+			children = (
+				B0E12C232F48261900FD19B5 /* AeroShiftLiveActivityWidget.swift */,
+				B0E12C242F48261900FD19B5 /* ActiveDutyActivityAttributes.swift */,
+				B0E12C252F48261900FD19B5 /* Color+Brand.swift */,
+			);
+			name = AeroShiftWidgetExtension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -73,10 +93,12 @@
 				B0E12C002F48261900FD19B5 /* Sources */,
 				B0E12C012F48261900FD19B5 /* Frameworks */,
 				B0E12C022F48261900FD19B5 /* Resources */,
+				B0E12C302F48261900FD19B5 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				B0E12C322F48261900FD19B5 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				B0E12C062F48261900FD19B5 /* Aeroshift */,
@@ -111,6 +133,25 @@
 			productReference = B0E12C142F48261900FD19B5 /* AeroshiftTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		B0E12C282F48261900FD19B5 /* AeroShiftWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B0E12C2E2F48261900FD19B5 /* Build configuration list for PBXNativeTarget "AeroShiftWidgetExtension" */;
+			buildPhases = (
+				B0E12C292F48261900FD19B5 /* Sources */,
+				B0E12C2A2F48261900FD19B5 /* Frameworks */,
+				B0E12C2B2F48261900FD19B5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AeroShiftWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = AeroShiftWidgetExtension;
+			productReference = B0E12C262F48261900FD19B5 /* AeroShiftWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,6 +162,13 @@
 			remoteGlobalIDString = B0E12C032F48261900FD19B5;
 			remoteInfo = Aeroshift;
 		};
+		B0E12C312F48261900FD19B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B0E12BFC2F48261900FD19B5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B0E12C282F48261900FD19B5;
+			remoteInfo = AeroShiftWidgetExtension;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXTargetDependency section */
@@ -129,7 +177,26 @@
 			target = B0E12C032F48261900FD19B5 /* Aeroshift */;
 			targetProxy = B0E12C1E2F48261900FD19B5 /* PBXContainerItemProxy */;
 		};
+		B0E12C322F48261900FD19B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B0E12C282F48261900FD19B5 /* AeroShiftWidgetExtension */;
+			targetProxy = B0E12C312F48261900FD19B5 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B0E12C302F48261900FD19B5 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				B0E12C2F2F48261900FD19B5 /* AeroShiftWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXProject section */
 		B0E12BFC2F48261900FD19B5 /* Project object */ = {
@@ -145,6 +212,9 @@
 					B0E12C162F48261900FD19B5 = {
 						CreatedOnToolsVersion = 26.2;
 						TestTargetID = B0E12C032F48261900FD19B5;
+					};
+					B0E12C282F48261900FD19B5 = {
+						CreatedOnToolsVersion = 26.2;
 					};
 				};
 			};
@@ -164,6 +234,7 @@
 			targets = (
 				B0E12C032F48261900FD19B5 /* Aeroshift */,
 				B0E12C162F48261900FD19B5 /* AeroshiftTests */,
+				B0E12C282F48261900FD19B5 /* AeroShiftWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -177,6 +248,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		B0E12C192F48261900FD19B5 /* AeroshiftTests Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0E12C2B2F48261900FD19B5 /* AeroShiftWidgetExtension Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -197,6 +275,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0E12C292F48261900FD19B5 /* AeroShiftWidgetExtension Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0E12C202F48261900FD19B5 /* AeroShiftLiveActivityWidget.swift in Sources */,
+				B0E12C212F48261900FD19B5 /* ActiveDutyActivityAttributes.swift in Sources */,
+				B0E12C222F48261900FD19B5 /* Color+Brand.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,6 +425,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -369,6 +458,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -426,6 +516,46 @@
 			};
 			name = Release;
 		};
+		B0E12C2C2F48261900FD19B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L93MPF9M5N;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSExtension_NSExtensionPointIdentifier = "com.apple.widgetkit-extension";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sahinraj.Aeroshift.WidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B0E12C2D2F48261900FD19B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L93MPF9M5N;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSExtension_NSExtensionPointIdentifier = "com.apple.widgetkit-extension";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sahinraj.Aeroshift.WidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -452,6 +582,15 @@
 			buildConfigurations = (
 				B0E12C1A2F48261900FD19B5 /* Debug */,
 				B0E12C1B2F48261900FD19B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B0E12C2E2F48261900FD19B5 /* Build configuration list for PBXNativeTarget "AeroShiftWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0E12C2C2F48261900FD19B5 /* Debug */,
+				B0E12C2D2F48261900FD19B5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -2,6 +2,31 @@ import Foundation
 import SwiftData
 
 @Model
+final class ImportBatch {
+    var importedAt: Date
+    var title: String
+    var legCount: Int
+    var dutyCount: Int
+
+    @Relationship(deleteRule: .cascade, inverse: \DutyPeriod.importBatch)
+    var dutyPeriods: [DutyPeriod]
+
+    init(
+        importedAt: Date = .now,
+        title: String,
+        legCount: Int,
+        dutyCount: Int,
+        dutyPeriods: [DutyPeriod] = []
+    ) {
+        self.importedAt = importedAt
+        self.title = title
+        self.legCount = legCount
+        self.dutyCount = dutyCount
+        self.dutyPeriods = dutyPeriods
+    }
+}
+
+@Model
 final class RosterMonth {
     var month: Int
     var year: Int
@@ -27,19 +52,22 @@ final class DutyPeriod {
     var flightLegs: [FlightLeg]
 
     var rosterMonth: RosterMonth?
+    var importBatch: ImportBatch?
 
     init(
         startDate: Date,
         endDate: Date,
         totalBlockMinutes: Int,
         flightLegs: [FlightLeg] = [],
-        rosterMonth: RosterMonth? = nil
+        rosterMonth: RosterMonth? = nil,
+        importBatch: ImportBatch? = nil
     ) {
         self.startDate = startDate
         self.endDate = endDate
         self.totalBlockMinutes = totalBlockMinutes
         self.flightLegs = flightLegs
         self.rosterMonth = rosterMonth
+        self.importBatch = importBatch
     }
 }
 

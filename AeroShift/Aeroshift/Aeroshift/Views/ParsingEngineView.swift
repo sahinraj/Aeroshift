@@ -14,6 +14,10 @@ struct ParsingEngineView: View {
                 Text("Bid Pack Parser")
                     .font(.title2.weight(.semibold))
 
+                Text("One leg per line. Leave a blank line between duties.")
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+
                 TextEditor(text: $viewModel.rawText)
                     .font(.body.monospaced())
                     .padding(8)
@@ -59,6 +63,8 @@ struct ParsingEngineView: View {
                         .foregroundStyle(.red)
                         .font(.callout)
                 }
+
+                ImportHistoryView()
             }
             .padding()
         }
@@ -68,11 +74,12 @@ struct ParsingEngineView: View {
     }
 
     private func importSummary(_ summary: IngestSummary) -> String {
+        let dutyText = summary.dutyCount == 1 ? "1 duty" : "\(summary.dutyCount) duties"
         if summary.duplicateCount == 0 {
-            return "Imported \(summary.insertedCount) leg(s) into local storage."
+            return "Imported \(summary.insertedCount) leg(s) across \(dutyText) into local storage."
         }
 
-        return "Imported \(summary.insertedCount) new leg(s); skipped \(summary.duplicateCount) duplicate(s)."
+        return "Imported \(summary.insertedCount) new leg(s) across \(dutyText); skipped \(summary.duplicateCount) duplicate(s)."
     }
 }
 
@@ -96,20 +103,28 @@ private struct ImportReviewCard: View {
                 Text("No valid legs were found. Correct the input and review it again.")
                     .foregroundStyle(.secondary)
             } else {
-                ForEach(result.drafts) { draft in
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("\(draft.flightNumber) · \(draft.origin) → \(draft.destination)")
-                            .font(.headline)
-                        Text("\(draft.departure, format: .dateTime.month(.abbreviated).day().hour().minute()) → \(draft.arrival, format: .dateTime.hour().minute())")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                        Text(draft.type.rawValue.capitalized)
-                            .font(.caption2.weight(.medium))
-                            .padding(.horizontal, 8)
+                ForEach(result.groups) { group in
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Duty \(group.index + 1)")
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(Color.OceanBlue)
+
+                        ForEach(group.drafts) { draft in
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("\(draft.flightNumber) · \(draft.origin) → \(draft.destination)")
+                                    .font(.headline)
+                                Text("\(draft.departure, format: .dateTime.month(.abbreviated).day().hour().minute()) → \(draft.arrival, format: .dateTime.hour().minute())")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                                Text(draft.type.rawValue.capitalized)
+                                    .font(.caption2.weight(.medium))
+                                    .padding(.horizontal, 8)
+                                    .padding(.vertical, 4)
+                                    .background(Color.primaryBrand.opacity(0.12), in: Capsule())
+                            }
                             .padding(.vertical, 4)
-                            .background(Color.primaryBrand.opacity(0.12), in: Capsule())
+                        }
                     }
-                    .padding(.vertical, 4)
                 }
             }
 
