@@ -28,9 +28,12 @@ struct SettingsView: View {
                 LabeledContent("Duty periods", value: "\(dutyPeriods.count)")
                 LabeledContent("Flight legs", value: "\(flightLegs.count)")
 
-                Button("Load Synthetic Sample") {
-                    loadSyntheticSample()
+                Button("Load Showcase Demo") {
+                    loadShowcaseDemo()
                 }
+                Text("Adds one active duty, one upcoming rotation, and local import history using synthetic data.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
 
                 Button("Delete All Local Data", role: .destructive) {
                     showingDeleteConfirmation = true
@@ -70,57 +73,15 @@ struct SettingsView: View {
         }
     }
 
-    private func loadSyntheticSample() {
-        guard !flightLegs.contains(where: { $0.flightNumber == "DEMO123" }) else {
-            statusMessage = "The synthetic sample is already loaded."
-            return
-        }
-
-        let now = Date()
-        let calendar = Calendar.current
-        let rosterMonth = RosterMonth(
-            month: calendar.component(.month, from: now),
-            year: calendar.component(.year, from: now)
-        )
-        let firstDeparture = now.addingTimeInterval(-30 * 60)
-        let firstArrival = now.addingTimeInterval(60 * 60)
-        let secondDeparture = now.addingTimeInterval(90 * 60)
-        let secondArrival = now.addingTimeInterval(180 * 60)
-        let duty = DutyPeriod(
-            startDate: firstDeparture,
-            endDate: secondArrival,
-            totalBlockMinutes: 150,
-            rosterMonth: rosterMonth
-        )
-        let firstLeg = FlightLeg(
-            flightNumber: "DEMO123",
-            origin: "AAA",
-            destination: "BBB",
-            scheduledDeparture: firstDeparture,
-            scheduledArrival: firstArrival,
-            dutyPeriod: duty
-        )
-        let secondLeg = FlightLeg(
-            flightNumber: "DEMO124",
-            origin: "BBB",
-            destination: "CCC",
-            scheduledDeparture: secondDeparture,
-            scheduledArrival: secondArrival,
-            dutyPeriod: duty
-        )
-
-        duty.flightLegs = [firstLeg, secondLeg]
-        rosterMonth.dutyPeriods = [duty]
-        modelContext.insert(rosterMonth)
-        modelContext.insert(duty)
-        modelContext.insert(firstLeg)
-        modelContext.insert(secondLeg)
-
+    private func loadShowcaseDemo() {
         do {
-            try modelContext.save()
-            statusMessage = "Synthetic sample data was added locally."
+            if try ShowcaseDataSeeder.seed(into: modelContext) {
+                statusMessage = "Showcase demo data was added locally."
+            } else {
+                statusMessage = "The showcase demo is already loaded."
+            }
         } catch {
-            statusMessage = "Could not save the synthetic sample: \(error.localizedDescription)"
+            statusMessage = "Could not save the showcase demo: \(error.localizedDescription)"
         }
     }
 

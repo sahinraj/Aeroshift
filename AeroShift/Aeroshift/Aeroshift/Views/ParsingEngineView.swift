@@ -22,6 +22,8 @@ struct ParsingEngineView: View {
                     .font(.body.monospaced())
                     .padding(8)
                     .frame(minHeight: 300)
+                    .accessibilityLabel("Roster import text")
+                    .accessibilityHint("Enter one flight leg per line and leave a blank line between duties.")
                     .background(Color.adaptiveCardBackground)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
                     .overlay {

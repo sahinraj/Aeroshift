@@ -130,7 +130,7 @@ private struct DailyItineraryStrip: View {
     let legs: [FlightLeg]
 
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
+        ScrollView(.horizontal) {
             LazyHStack(spacing: 12) {
                 ForEach(legs, id: \.id) { leg in
                     VStack(alignment: .leading, spacing: 8) {
@@ -157,5 +157,6 @@ private struct DailyItineraryStrip: View {
             }
             .padding(.vertical, 4)
         }
+        .scrollIndicators(.hidden)
     }
 }
