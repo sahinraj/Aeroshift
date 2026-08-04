@@ -15,6 +15,7 @@ AeroShift is an offline-first personal iPadOS/iOS app built with Swift in strict
 
 ## Persistence Schema (SwiftData)
 - `RosterMonth` (month, year) → one-to-many `DutyPeriod`
+- `ImportBatch` (local import timestamp and counts) → one-to-many `DutyPeriod`
 - `DutyPeriod` (startDate, endDate, totalBlockMinutes) → one-to-many `FlightLeg`
 - `FlightLeg` (flight number, route, departure/arrival, leg type)
 
@@ -47,7 +48,7 @@ Each confirmed import creates an `ImportBatch` with local timestamp and counts. 
 The dashboard distinguishes active duty, upcoming duty, and no active/upcoming duty. Progress is shown only for an active flight; upcoming flights show their scheduled departure instead of an inaccurate remaining-time value.
 
 ## Testing
-The `AeroshiftTests` target covers overnight parsing, actionable parser issues, multi-duty grouping, duty selection, and in-progress leg selection. Fixtures use synthetic identifiers and routes.
+The `AeroshiftTests` target covers overnight parsing, actionable parser issues, multi-duty grouping, showcase-data seeding, duty selection, and in-progress leg selection. Fixtures use synthetic identifiers and routes. GitHub Actions runs the shared Xcode scheme on an available iOS Simulator.
 
 ## Networking
 No external network calls are required for core functionality. The baseline implementation assumes airplane mode or zero-trust conditions.
@@ -60,3 +61,6 @@ AeroShift is not affiliated with, sponsored by, endorsed by, or developed for Fe
 
 ## Live Activities status
 The project now contains a dedicated Widget Extension target for the lock-screen and Dynamic Island UI. It compiles the shared ActivityKit attributes and brand theme only; roster persistence and network access remain in the app target. Device-level ActivityKit entitlement and presentation testing are still required before calling the surface production-ready.
+
+## Showcase workflow
+The Settings screen includes a `Load Showcase Demo` action that creates a repeatable, synthetic local roster with one active duty, one upcoming rotation, and import history. This provides a safe path for screenshots, demos, and portfolio review without using employer or confidential data.
