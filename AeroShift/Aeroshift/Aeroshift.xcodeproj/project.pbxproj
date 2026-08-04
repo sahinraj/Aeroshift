@@ -11,6 +11,7 @@
 
 /* Begin PBXFileReference section */
 		B0E12C042F48261900FD19B5 /* Aeroshift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aeroshift.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0E12C142F48261900FD19B5 /* AeroshiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AeroshiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -19,10 +20,22 @@
 			path = Aeroshift;
 			sourceTree = "<group>";
 		};
+		B0E12C152F48261900FD19B5 /* AeroshiftTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = AeroshiftTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		B0E12C012F48261900FD19B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0E12C182F48261900FD19B5 /* AeroshiftTests Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -36,6 +49,7 @@
 			isa = PBXGroup;
 			children = (
 				B0E12C062F48261900FD19B5 /* Aeroshift */,
+				B0E12C152F48261900FD19B5 /* AeroshiftTests */,
 				B0E12C052F48261900FD19B5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -44,6 +58,7 @@
 			isa = PBXGroup;
 			children = (
 				B0E12C042F48261900FD19B5 /* Aeroshift.app */,
+				B0E12C142F48261900FD19B5 /* AeroshiftTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -73,7 +88,48 @@
 			productReference = B0E12C042F48261900FD19B5 /* Aeroshift.app */;
 			productType = "com.apple.product-type.application";
 		};
+		B0E12C162F48261900FD19B5 /* AeroshiftTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B0E12C1C2F48261900FD19B5 /* Build configuration list for PBXNativeTarget "AeroshiftTests" */;
+			buildPhases = (
+				B0E12C172F48261900FD19B5 /* Sources */,
+				B0E12C182F48261900FD19B5 /* Frameworks */,
+				B0E12C192F48261900FD19B5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B0E12C1D2F48261900FD19B5 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				B0E12C152F48261900FD19B5 /* AeroshiftTests */,
+			);
+			name = AeroshiftTests;
+			packageProductDependencies = (
+			);
+			productName = AeroshiftTests;
+			productReference = B0E12C142F48261900FD19B5 /* AeroshiftTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
+
+/* Begin PBXContainerItemProxy section */
+		B0E12C1E2F48261900FD19B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B0E12BFC2F48261900FD19B5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B0E12C032F48261900FD19B5;
+			remoteInfo = Aeroshift;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXTargetDependency section */
+		B0E12C1D2F48261900FD19B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B0E12C032F48261900FD19B5 /* Aeroshift */;
+			targetProxy = B0E12C1E2F48261900FD19B5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXProject section */
 		B0E12BFC2F48261900FD19B5 /* Project object */ = {
@@ -85,6 +141,10 @@
 				TargetAttributes = {
 					B0E12C032F48261900FD19B5 = {
 						CreatedOnToolsVersion = 26.2;
+					};
+					B0E12C162F48261900FD19B5 = {
+						CreatedOnToolsVersion = 26.2;
+						TestTargetID = B0E12C032F48261900FD19B5;
 					};
 				};
 			};
@@ -103,6 +163,7 @@
 			projectRoot = "";
 			targets = (
 				B0E12C032F48261900FD19B5 /* Aeroshift */,
+				B0E12C162F48261900FD19B5 /* AeroshiftTests */,
 			);
 		};
 /* End PBXProject section */
@@ -115,10 +176,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B0E12C192F48261900FD19B5 /* AeroshiftTests Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B0E12C002F48261900FD19B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0E12C172F48261900FD19B5 /* AeroshiftTests Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -313,6 +388,44 @@
 			};
 			name = Release;
 		};
+		B0E12C1A2F48261900FD19B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L93MPF9M5N;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sahinraj.AeroshiftTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Aeroshift.app/Aeroshift";
+			};
+			name = Debug;
+		};
+		B0E12C1B2F48261900FD19B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L93MPF9M5N;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sahinraj.AeroshiftTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Aeroshift.app/Aeroshift";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -330,6 +443,15 @@
 			buildConfigurations = (
 				B0E12C122F48261B00FD19B5 /* Debug */,
 				B0E12C132F48261B00FD19B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B0E12C1C2F48261900FD19B5 /* Build configuration list for PBXNativeTarget "AeroshiftTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0E12C1A2F48261900FD19B5 /* Debug */,
+				B0E12C1B2F48261900FD19B5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
