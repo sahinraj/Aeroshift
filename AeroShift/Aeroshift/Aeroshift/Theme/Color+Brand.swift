@@ -1,9 +1,15 @@
 import SwiftUI
 
+// Uppercase aliases provided to match branding specs while keeping existing lowercase names for backward compatibility.
+
 extension Color {
     static let primaryBrand = Color(hex: 0x00828A)
     static let oceanBlue = Color(hex: 0x005B7F)
     static let warningAlert = Color(hex: 0xFF9F0A)
+
+    static let PrimaryBrand = Color.primaryBrand
+    static let OceanBlue = Color.oceanBlue
+    static let WarningAlert = Color.warningAlert
 
     static let adaptiveCanvasBackground = Color(uiColor: .systemGroupedBackground)
     static let adaptiveCardBackground = Color(uiColor: .secondarySystemGroupedBackground)

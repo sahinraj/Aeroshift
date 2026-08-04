@@ -26,10 +26,16 @@ struct RootSplitView: View {
 
     var body: some View {
         NavigationSplitView {
-            List(SidebarDestination.allCases, selection: $selectedDestination) { destination in
-                Label(destination.rawValue, systemImage: destination.systemImage)
-                    .font(.headline)
+            List(selection: $selectedDestination) {
+                ForEach(SidebarDestination.allCases) { destination in
+                    NavigationLink(value: destination) {
+                        Label(destination.rawValue, systemImage: destination.systemImage)
+                            .font(.headline)
+                    }
+                    .tag(destination)
+                }
             }
+            .listStyle(.sidebar)
             .navigationTitle("AeroShift")
         } detail: {
             switch selectedDestination ?? .activeDuty {
@@ -43,8 +49,20 @@ struct RootSplitView: View {
                 PlaceholderView(title: "Settings")
             }
         }
-        .tint(.primaryBrand)
-        .background(Color.adaptiveCanvasBackground)
+        .navigationDestination(for: SidebarDestination.self) { destination in
+            switch destination {
+            case .activeDuty:
+                DashboardView()
+            case .upcomingRotations:
+                PlaceholderView(title: "Upcoming Rotations")
+            case .bidPackArchive:
+                ParsingEngineView(modelContainer: modelContainer)
+            case .settings:
+                PlaceholderView(title: "Settings")
+            }
+        }
+        .tint(Color.PrimaryBrand)
+        .background(Color.adaptiveCanvasBackground as Color?)
     }
 }
 
@@ -55,7 +73,7 @@ private struct PlaceholderView: View {
         VStack(spacing: 12) {
             Image(systemName: "airplane")
                 .font(.largeTitle)
-                .foregroundStyle(Color.oceanBlue)
+                .foregroundStyle(Color.OceanBlue)
             Text(title)
                 .font(.title2.weight(.semibold))
             Text("Offline mode ready.")

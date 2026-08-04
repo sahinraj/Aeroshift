@@ -1,7 +1,7 @@
 # AeroShift Architecture
 
 ## Overview
-AeroShift is an offline-first iPadOS/iOS app built with Swift 6 and strict MVVM. The app ingests aviation bid packs and releases, stores them locally using SwiftData, and renders active-duty state in native SwiftUI views.
+AeroShift is an offline-first personal iPadOS/iOS app built with Swift in strict MVVM. The app explores aviation roster ingestion, stores data locally using SwiftData, and renders active-duty state in native SwiftUI views.
 
 ## Architectural Style
 - **MVVM:**
@@ -32,3 +32,12 @@ AeroShift is an offline-first iPadOS/iOS app built with Swift 6 and strict MVVM.
 
 ## Networking
 No external network calls are required for core functionality. The baseline implementation assumes airplane mode or zero-trust conditions.
+
+## Personal-project boundary
+The app is intentionally standalone and unrelated to employment. It has no employer integration, credentials, proprietary APIs, or external data-sharing path. Development and testing should use synthetic or personally owned data.
+
+## Disclaimer
+AeroShift is not affiliated with, sponsored by, endorsed by, or developed for FedEx Corporation, its subsidiaries, or any employer. The project must not contain or process employer confidential information, proprietary code, credentials, internal APIs, or operational data.
+
+## Live Activities status
+ActivityKit attributes and the app-side manager are scaffolded, but the Live Activity widget source is not compiled into the main app target. A dedicated Widget Extension target still needs to be added before lock-screen or Dynamic Island UI can be considered production-ready.
