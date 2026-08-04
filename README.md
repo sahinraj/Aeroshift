@@ -1,16 +1,21 @@
 # AeroShift iOS Application README
 
 ## Product Vision
-AeroShift is an offline-first iPadOS and iOS application for flight crews to ingest bid packs and releases, organize duty timelines locally, and monitor active duty with a native dashboard.
+AeroShift is an offline-first personal iPadOS and iOS application for exploring roster ingestion, local duty timelines, and an active-duty dashboard.
+
+This repository is a standalone personal project for private development and experimentation. It is not a work project.
+
+## Disclaimer
+AeroShift is not affiliated with, sponsored by, endorsed by, or developed for FedEx Corporation, its subsidiaries, or any employer. It does not contain or depend on FedEx confidential or proprietary code, data, systems, credentials, APIs, trademarks, or branding. Do not import employer-provided or confidential material into this repository or app.
 
 ## Core Features
 - **Offline-first architecture:** All ingestion, persistence, and display workflows operate without network access.
 - **Native SwiftUI dashboard:** iPad-first split-view layout with active duty context and itinerary cards.
 - **Local parsing pipeline:** Raw text imports are parsed in background actors and persisted with SwiftData.
-- **Live surfaces foundation:** App Intents and Live Activity attribute scaffolding for lock screen and dynamic updates.
+- **Live surfaces foundation:** ActivityKit manager and attribute scaffolding for a future widget extension.
 
 ## Technical Stack
-- **Swift 6**
+- **Swift (Swift 5 language mode in the Xcode project)**
 - **SwiftUI**
 - **SwiftData**
 - **Combine**
@@ -21,3 +26,8 @@ AeroShift is an offline-first iPadOS and iOS application for flight crews to ing
 - Keep business logic in ViewModels / actors, not views.
 - Use semantic spacing, native typography, and adaptive system backgrounds.
 - Make zero external network calls by default.
+
+## Privacy Boundary
+- Imported text and parsed roster data remain on the device.
+- No network, analytics, account, or employer-service integration is part of the baseline.
+- Use synthetic or personally owned sample data while developing and testing.

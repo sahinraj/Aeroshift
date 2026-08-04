@@ -33,6 +33,23 @@ struct DashboardView: View {
         }
         .navigationTitle("Active Duty")
         .background(Color.adaptiveCanvasBackground as Color?)
+        .toolbar {
+            ToolbarItemGroup(placement: .primaryAction) {
+                Button("Start Activity") {
+                    Task { await viewModel.startLiveActivity(for: nextLeg) }
+                }
+                .disabled(nextLeg == nil)
+
+                Button("Update Activity") {
+                    Task { await viewModel.refreshLiveActivity(for: nextLeg) }
+                }
+                .disabled(nextLeg == nil)
+
+                Button("End Activity") {
+                    Task { await viewModel.endLiveActivity() }
+                }
+            }
+        }
     }
 }
 
@@ -126,4 +143,3 @@ private struct DailyItineraryStrip: View {
         }
     }
 }
-

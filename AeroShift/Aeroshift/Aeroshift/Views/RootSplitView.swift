@@ -61,21 +61,6 @@ struct RootSplitView: View {
                 PlaceholderView(title: "Settings")
             }
         }
-        .toolbar {
-            if selectedDestination == .activeDuty {
-                ToolbarItemGroup(placement: .primaryAction) {
-                    Button("Start Activity") {
-                        Task { await DashboardLiveActivityBridge.shared.start() }
-                    }
-                    Button("Update") {
-                        Task { await DashboardLiveActivityBridge.shared.update() }
-                    }
-                    Button("End") {
-                        Task { await DashboardLiveActivityBridge.shared.end() }
-                    }
-                }
-            }
-        }
         .tint(Color.PrimaryBrand)
         .background(Color.adaptiveCanvasBackground as Color?)
     }

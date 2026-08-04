@@ -13,13 +13,16 @@ final class DashboardViewModel: ObservableObject {
     #endif
 
     func activeDuty(in periods: [DutyPeriod], now: Date = .now) -> DutyPeriod? {
-        periods.first(where: { $0.startDate <= now && $0.endDate >= now }) ?? periods.first
+        let sortedPeriods = periods.sorted(by: { $0.startDate < $1.startDate })
+        return sortedPeriods.first(where: { $0.startDate <= now && $0.endDate >= now })
+            ?? sortedPeriods.first(where: { $0.startDate > now })
     }
 
     func nextLeg(in duty: DutyPeriod?, now: Date = .now) -> FlightLeg? {
         guard let duty else { return nil }
         let sorted = duty.flightLegs.sorted(by: { $0.scheduledDeparture < $1.scheduledDeparture })
-        return sorted.first(where: { $0.scheduledArrival > now }) ?? sorted.first
+        return sorted.first(where: { $0.scheduledDeparture <= now && $0.scheduledArrival > now })
+            ?? sorted.first(where: { $0.scheduledDeparture > now })
     }
 
     func itinerary(for duty: DutyPeriod?) -> [FlightLeg] {
@@ -70,4 +73,3 @@ final class DashboardViewModel: ObservableObject {
     }
     #endif
 }
-

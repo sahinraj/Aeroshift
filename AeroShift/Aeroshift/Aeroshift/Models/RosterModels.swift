@@ -45,7 +45,7 @@ final class DutyPeriod {
 
 @Model
 final class FlightLeg {
-    enum LegType: String, Codable, CaseIterable {
+    enum LegType: String, Codable, CaseIterable, Sendable {
         case flight
         case deadhead
         case layover

@@ -30,7 +30,7 @@ struct AeroShiftLiveActivityWidget: Widget {
                         .tint(Color.PrimaryBrand)
                 }
             } compactLeading: {
-                Text("AS").bold().foregroundStyle(Color.PrimaryBrand)
+                Text("A").bold().foregroundStyle(Color.PrimaryBrand)
             } compactTrailing: {
                 Text("\(Int(context.state.progress * 100))")
                     .font(.caption2)
@@ -80,8 +80,8 @@ private struct LiveActivityLockScreenView: View {
 }
 
 #Preview("Live Activity Preview") {
-    let attributes = ActiveDutyActivityAttributes(flightNumber: "AS123")
-    let content = ActiveDutyActivityAttributes.ContentState(route: "SEA → SFO", blockMinutesRemaining: 52, progress: 0.42)
+    let attributes = ActiveDutyActivityAttributes(flightNumber: "DEMO123")
+    let content = ActiveDutyActivityAttributes.ContentState(route: "AAA → BBB", blockMinutesRemaining: 52, progress: 0.42)
     return attributes.previewContext(content, viewKind: .content)
 }
 #endif
