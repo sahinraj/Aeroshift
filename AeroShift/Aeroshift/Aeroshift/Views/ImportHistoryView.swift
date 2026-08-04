@@ -60,13 +60,22 @@ struct ImportHistoryView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .confirmationDialog(
             "Delete this import and its associated duties?",
-            item: $batchPendingDeletion,
+            isPresented: Binding(
+                get: { batchPendingDeletion != nil },
+                set: { isPresented in
+                    if !isPresented {
+                        batchPendingDeletion = nil
+                    }
+                }
+            ),
             titleVisibility: .visible
-        ) { batch in
+        ) {
             Button("Delete Import", role: .destructive) {
+                guard let batch = batchPendingDeletion else { return }
+                batchPendingDeletion = nil
                 delete(batch)
             }
-        } message: { _ in
+        } message: {
             Text("This removes the imported duties and legs from local storage.")
         }
     }

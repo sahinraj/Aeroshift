@@ -49,18 +49,6 @@ struct RootSplitView: View {
                 SettingsView()
             }
         }
-        .navigationDestination(for: SidebarDestination.self) { destination in
-            switch destination {
-            case .activeDuty:
-                DashboardView()
-            case .upcomingRotations:
-                UpcomingRotationsView()
-            case .bidPackArchive:
-                ParsingEngineView(modelContainer: modelContainer)
-            case .settings:
-                SettingsView()
-            }
-        }
         .tint(Color.PrimaryBrand)
         .background(Color.adaptiveCanvasBackground as Color?)
     }
