@@ -3,6 +3,7 @@ import SwiftData
 
 struct SettingsView: View {
     @Environment(\.modelContext) private var modelContext
+    @Query private var importBatches: [ImportBatch]
     @Query private var rosterMonths: [RosterMonth]
     @Query private var dutyPeriods: [DutyPeriod]
     @Query private var flightLegs: [FlightLeg]
@@ -22,6 +23,7 @@ struct SettingsView: View {
             }
 
             Section("Local Data") {
+                LabeledContent("Import batches", value: "\(importBatches.count)")
                 LabeledContent("Roster months", value: "\(rosterMonths.count)")
                 LabeledContent("Duty periods", value: "\(dutyPeriods.count)")
                 LabeledContent("Flight legs", value: "\(flightLegs.count)")
@@ -128,6 +130,9 @@ struct SettingsView: View {
         }
         for dutyPeriod in dutyPeriods {
             modelContext.delete(dutyPeriod)
+        }
+        for importBatch in importBatches {
+            modelContext.delete(importBatch)
         }
         for rosterMonth in rosterMonths {
             modelContext.delete(rosterMonth)

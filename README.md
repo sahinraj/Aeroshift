@@ -12,10 +12,14 @@ AeroShift is not affiliated with, sponsored by, endorsed by, or developed for Fe
 - **Offline-first architecture:** All ingestion, persistence, and display workflows operate without network access.
 - **Native SwiftUI dashboard:** iPad-first split-view layout with active duty context and itinerary cards.
 - **Reviewable local parsing:** Raw text imports are parsed in background actors, reviewed with line-specific issues, and confirmed before SwiftData persistence.
+- **Multi-duty grouping:** Blank lines in the personal import format separate duties while keeping single-duty imports backward compatible.
+- **Upcoming rotations:** Future duties are organized into a local list with route, timing, block-time, and leg detail.
+- **Import history:** Confirmed imports are tracked locally and can be removed as a batch.
+- **Explicit dashboard states:** Active, upcoming, and empty states are presented separately.
 - **Duplicate-safe ingestion:** Re-importing the same leg skips existing local records instead of creating duplicates.
 - **Local data controls:** Synthetic sample data and delete-all-local-data actions support safe development and privacy-conscious testing.
 - **Test coverage foundation:** Parser and dashboard-selection tests live in a dedicated `AeroshiftTests` target.
-- **Live surfaces foundation:** ActivityKit manager and attribute scaffolding for a future widget extension.
+- **Live surfaces:** A dedicated WidgetKit extension target hosts the Live Activity UI and shares only ActivityKit attributes and theme code.
 
 ## Technical Stack
 - **Swift (Swift 5 language mode in the Xcode project)**
