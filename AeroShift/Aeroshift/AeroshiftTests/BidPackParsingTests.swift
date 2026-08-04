@@ -43,6 +43,34 @@ final class BidPackParsingTests: XCTestCase {
         XCTAssertEqual(result.groups.last?.drafts.count, 1)
     }
 
+    func testWhitespaceOnlyLinesDoNotCreatePhantomDutyGroups() async {
+        let parser = BidPackParsingActor()
+        let result = await parser.parse(rawText: """
+
+        DEMO123 AAA BBB 0800 0900 flight
+        \t
+
+        DEMO124 BBB CCC 1000 1100 flight
+
+        """)
+
+        XCTAssertEqual(result.drafts.count, 2)
+        XCTAssertEqual(result.groups.count, 2)
+        XCTAssertEqual(result.groups.map(\.drafts.count), [1, 1])
+    }
+
+    func testInvalidLegTypesAreReportedWithoutDroppingOtherValidLegs() async {
+        let parser = BidPackParsingActor()
+        let result = await parser.parse(rawText: """
+        DEMO123 AAA BBB 0800 0900 flight
+        DEMO124 BBB CCC 1000 1100 taxi
+        """)
+
+        XCTAssertEqual(result.drafts.count, 1)
+        XCTAssertEqual(result.issues.count, 1)
+        XCTAssertTrue(result.issues[0].message.contains("Unknown leg type"))
+    }
+
     private func makeDate(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Date {
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = .current
