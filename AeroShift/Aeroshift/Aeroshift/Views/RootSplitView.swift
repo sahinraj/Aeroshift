@@ -42,7 +42,7 @@ struct RootSplitView: View {
             case .activeDuty:
                 DashboardView()
             case .upcomingRotations:
-                PlaceholderView(title: "Upcoming Rotations")
+                UpcomingRotationsView()
             case .bidPackArchive:
                 ParsingEngineView(modelContainer: modelContainer)
             case .settings:
@@ -54,7 +54,7 @@ struct RootSplitView: View {
             case .activeDuty:
                 DashboardView()
             case .upcomingRotations:
-                PlaceholderView(title: "Upcoming Rotations")
+                UpcomingRotationsView()
             case .bidPackArchive:
                 ParsingEngineView(modelContainer: modelContainer)
             case .settings:
@@ -63,21 +63,5 @@ struct RootSplitView: View {
         }
         .tint(Color.PrimaryBrand)
         .background(Color.adaptiveCanvasBackground as Color?)
-    }
-}
-
-private struct PlaceholderView: View {
-    let title: String
-
-    var body: some View {
-        VStack(spacing: 12) {
-            Image(systemName: "airplane")
-                .font(.largeTitle)
-                .foregroundStyle(Color.OceanBlue)
-            Text(title)
-                .font(.title2.weight(.semibold))
-            Text("Offline mode ready.")
-                .foregroundStyle(.secondary)
-        }
     }
 }

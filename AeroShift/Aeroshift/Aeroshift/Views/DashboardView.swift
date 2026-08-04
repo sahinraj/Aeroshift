@@ -10,22 +10,25 @@ struct DashboardView: View {
     var body: some View {
         let duty = viewModel.activeDuty(in: dutyPeriods)
         let nextLeg = viewModel.nextLeg(in: duty)
+        let state = viewModel.presentationState(for: duty)
 
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                CurrentFlightReleaseCard(
-                    leg: nextLeg,
-                    progress: viewModel.progress(for: nextLeg),
-                    remainingText: viewModel.blockTimeRemaining(for: nextLeg)
-                )
+                if let duty {
+                    CurrentFlightReleaseCard(
+                        state: state,
+                        leg: nextLeg,
+                        progress: viewModel.progress(for: nextLeg),
+                        remainingText: viewModel.blockTimeRemaining(for: nextLeg),
+                        scheduledDeparture: nextLeg?.scheduledDeparture
+                    )
 
-                if duty != nil {
                     DailyItineraryStrip(legs: viewModel.itinerary(for: duty))
                 } else {
                     ContentUnavailableView(
-                        "No Duty Loaded",
+                        "No Active or Upcoming Duty",
                         systemImage: "tray",
-                        description: Text("Import a bid pack to populate active duty data.")
+                        description: Text("Import a roster or load synthetic sample data to populate the dashboard.")
                     )
                 }
             }
@@ -54,9 +57,11 @@ struct DashboardView: View {
 }
 
 private struct CurrentFlightReleaseCard: View {
+    let state: DutyPresentationState
     let leg: FlightLeg?
     let progress: Double
     let remainingText: String
+    let scheduledDeparture: Date?
 
     var body: some View {
         GroupBox {
@@ -84,15 +89,26 @@ private struct CurrentFlightReleaseCard: View {
                     }
                 }
 
-                Text("Block Time Remaining: \(remainingText)")
-                    .font(.headline)
+                if state == .active {
+                    Text("Block Time Remaining: \(remainingText)")
+                        .font(.headline)
 
-                ProgressView(value: progress)
-                    .tint(Color.PrimaryBrand)
+                    ProgressView(value: progress)
+                        .tint(Color.PrimaryBrand)
+                } else if let scheduledDeparture {
+                    HStack {
+                        Text("Scheduled Departure")
+                            .font(.headline)
+                        Spacer()
+                        Text(scheduledDeparture, style: .time)
+                            .font(.headline)
+                            .foregroundStyle(Color.PrimaryBrand)
+                    }
+                }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         } label: {
-            Text("Current Flight Release")
+            Text(state == .active ? "Current Flight Release" : "Upcoming Flight Release")
                 .font(.title3.weight(.semibold))
                 .foregroundStyle(Color.PrimaryBrand)
                 .frame(maxWidth: .infinity, alignment: .leading)

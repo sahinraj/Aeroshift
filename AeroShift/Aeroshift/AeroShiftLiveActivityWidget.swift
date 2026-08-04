@@ -44,6 +44,13 @@ struct AeroShiftLiveActivityWidget: Widget {
     }
 }
 
+@main
+struct AeroShiftWidgetBundle: WidgetBundle {
+    var body: some Widget {
+        AeroShiftLiveActivityWidget()
+    }
+}
+
 private struct LiveActivityLockScreenView: View {
     let context: ActivityViewContext<ActiveDutyActivityAttributes>
 

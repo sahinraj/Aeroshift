@@ -14,7 +14,12 @@ struct AeroshiftApp: App {
     
     init() {
         do {
-            modelContainer = try ModelContainer(for: RosterMonth.self, DutyPeriod.self, FlightLeg.self)
+            modelContainer = try ModelContainer(
+                for: RosterMonth.self,
+                DutyPeriod.self,
+                FlightLeg.self,
+                ImportBatch.self
+            )
         } catch {
             fatalError("Failed to initialize ModelContainer: \(error)")
         }

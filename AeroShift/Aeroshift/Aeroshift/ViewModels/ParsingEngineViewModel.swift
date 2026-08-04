@@ -17,6 +17,7 @@ struct ParsedLegDraft: Identifiable, Sendable {
     let departure: Date
     let arrival: Date
     let type: FlightLeg.LegType
+    let dutyGroupIndex: Int
 
     var id: String { dedupeKey }
 
@@ -37,6 +38,20 @@ struct ParseResult: Sendable {
     let issues: [ParsingIssue]
 
     var hasImportableLegs: Bool { !drafts.isEmpty }
+
+    var groups: [ParsedLegGroup] {
+        Dictionary(grouping: drafts, by: \.dutyGroupIndex)
+            .sorted(by: { $0.key < $1.key })
+            .enumerated()
+            .map { ParsedLegGroup(index: $0.offset, drafts: $0.element.value) }
+    }
+}
+
+struct ParsedLegGroup: Identifiable, Sendable {
+    let index: Int
+    let drafts: [ParsedLegDraft]
+
+    var id: Int { index }
 }
 
 actor BidPackParsingActor {
@@ -51,11 +66,21 @@ actor BidPackParsingActor {
         var drafts: [ParsedLegDraft] = []
         var issues: [ParsingIssue] = []
         var knownKeys = Set<String>()
+        var dutyGroupIndex = 0
+        var currentGroupHasRows = false
 
         for (index, rawLine) in rawText.components(separatedBy: .newlines).enumerated() {
             let lineNumber = index + 1
             let line = rawLine.trimmingCharacters(in: .whitespacesAndNewlines)
-            guard !line.isEmpty else { continue }
+            if line.isEmpty {
+                if currentGroupHasRows {
+                    dutyGroupIndex += 1
+                    currentGroupHasRows = false
+                }
+                continue
+            }
+
+            currentGroupHasRows = true
 
             // Expected lightweight format: F1234 JFK LAX 0545 0915 FLIGHT
             let tokens = line
@@ -89,7 +114,8 @@ actor BidPackParsingActor {
                 destination: tokens[2].uppercased(),
                 departure: mergedDeparture,
                 arrival: mergedArrival,
-                type: type
+                type: type,
+                dutyGroupIndex: dutyGroupIndex
             )
 
             guard knownKeys.insert(draft.dedupeKey).inserted else {
@@ -131,12 +157,15 @@ actor BidPackParsingActor {
 struct IngestSummary: Sendable {
     let insertedCount: Int
     let duplicateCount: Int
+    let dutyCount: Int
 }
 
 @ModelActor
 actor ParsingStore {
     func ingest(_ drafts: [ParsedLegDraft], for date: Date = .now) throws -> IngestSummary {
-        guard !drafts.isEmpty else { return IngestSummary(insertedCount: 0, duplicateCount: 0) }
+        guard !drafts.isEmpty else {
+            return IngestSummary(insertedCount: 0, duplicateCount: 0, dutyCount: 0)
+        }
 
         let existingLegs = try modelContext.fetch(FetchDescriptor<FlightLeg>())
         var knownKeys = Set(existingLegs.map(\.dedupeKey))
@@ -152,7 +181,7 @@ actor ParsingStore {
         }
 
         guard !uniqueDrafts.isEmpty else {
-            return IngestSummary(insertedCount: 0, duplicateCount: duplicateCount)
+            return IngestSummary(insertedCount: 0, duplicateCount: duplicateCount, dutyCount: 0)
         }
 
         let calendar = Calendar(identifier: .gregorian)
@@ -169,38 +198,55 @@ actor ParsingStore {
             modelContext.insert(rosterMonth)
         }
 
-        let dutyStart = uniqueDrafts.map(\.departure).min() ?? date
-        let dutyEnd = uniqueDrafts.map(\.arrival).max() ?? date
-        let totalBlockMinutes = uniqueDrafts.reduce(into: 0) { partialResult, draft in
-            partialResult += Int(draft.arrival.timeIntervalSince(draft.departure) / 60)
-        }
-
-        let duty = DutyPeriod(
-            startDate: dutyStart,
-            endDate: dutyEnd,
-            totalBlockMinutes: totalBlockMinutes,
-            rosterMonth: rosterMonth
+        let groupedDrafts = Dictionary(grouping: uniqueDrafts, by: \.dutyGroupIndex)
+        let importBatch = ImportBatch(
+            title: "Roster import",
+            legCount: uniqueDrafts.count,
+            dutyCount: groupedDrafts.count
         )
-        modelContext.insert(duty)
+        modelContext.insert(importBatch)
 
-        uniqueDrafts.forEach { draft in
-            let leg = FlightLeg(
-                flightNumber: draft.flightNumber,
-                origin: draft.origin,
-                destination: draft.destination,
-                scheduledDeparture: draft.departure,
-                scheduledArrival: draft.arrival,
-                legType: draft.type,
-                dutyPeriod: duty
+        for group in groupedDrafts.sorted(by: { $0.key < $1.key }) {
+            let groupDrafts = group.value
+            let dutyStart = groupDrafts.map(\.departure).min() ?? date
+            let dutyEnd = groupDrafts.map(\.arrival).max() ?? date
+            let totalBlockMinutes = groupDrafts.reduce(into: 0) { partialResult, draft in
+                partialResult += Int(draft.arrival.timeIntervalSince(draft.departure) / 60)
+            }
+
+            let duty = DutyPeriod(
+                startDate: dutyStart,
+                endDate: dutyEnd,
+                totalBlockMinutes: totalBlockMinutes,
+                rosterMonth: rosterMonth,
+                importBatch: importBatch
             )
-            modelContext.insert(leg)
-            duty.flightLegs.append(leg)
-        }
+            modelContext.insert(duty)
 
-        rosterMonth.dutyPeriods.append(duty)
+            groupDrafts.forEach { draft in
+                let leg = FlightLeg(
+                    flightNumber: draft.flightNumber,
+                    origin: draft.origin,
+                    destination: draft.destination,
+                    scheduledDeparture: draft.departure,
+                    scheduledArrival: draft.arrival,
+                    legType: draft.type,
+                    dutyPeriod: duty
+                )
+                modelContext.insert(leg)
+                duty.flightLegs.append(leg)
+            }
+
+            rosterMonth.dutyPeriods.append(duty)
+            importBatch.dutyPeriods.append(duty)
+        }
         try modelContext.save()
 
-        return IngestSummary(insertedCount: uniqueDrafts.count, duplicateCount: duplicateCount)
+        return IngestSummary(
+            insertedCount: uniqueDrafts.count,
+            duplicateCount: duplicateCount,
+            dutyCount: groupedDrafts.count
+        )
     }
 }
 

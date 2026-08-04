@@ -42,6 +42,17 @@ final class DashboardViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.nextLeg(in: duty, now: now)?.flightNumber, "DEMO101")
     }
 
+    func testDashboardPresentationStateDistinguishesActiveUpcomingAndEmpty() {
+        let now = Date()
+        let activeDuty = makeDuty(start: now.addingTimeInterval(-30 * 60), end: now.addingTimeInterval(60 * 60))
+        let upcomingDuty = makeDuty(start: now.addingTimeInterval(2 * 60 * 60), end: now.addingTimeInterval(4 * 60 * 60))
+        let viewModel = DashboardViewModel()
+
+        XCTAssertEqual(viewModel.presentationState(for: activeDuty, now: now), .active)
+        XCTAssertEqual(viewModel.presentationState(for: upcomingDuty, now: now), .upcoming)
+        XCTAssertEqual(viewModel.presentationState(for: nil, now: now), .none)
+    }
+
     private func makeDuty(start: Date, end: Date) -> DutyPeriod {
         DutyPeriod(startDate: start, endDate: end, totalBlockMinutes: 60)
     }

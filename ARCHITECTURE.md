@@ -32,15 +32,22 @@ AeroShift is an offline-first personal iPadOS/iOS app built with Swift in strict
 
 ## Import lifecycle
 1. Raw text is parsed off the main actor.
-2. Valid legs and line-specific parsing issues are shown in an import review.
-3. The user explicitly confirms the review before persistence.
-4. `ParsingStore` compares stable local keys and skips duplicate legs.
+2. Blank lines divide the personal import format into duty groups; no blank lines preserves the single-duty behavior.
+3. Valid legs and line-specific parsing issues are shown in an import review.
+4. The user explicitly confirms the review before persistence.
+5. `ParsingStore` compares stable local keys and creates one `DutyPeriod` per group.
 
 ## Local data controls
 Settings provides synthetic sample data for development and a confirmed delete-all flow for local roster records. These actions are device-local and do not export or transmit data.
 
+## Import history
+Each confirmed import creates an `ImportBatch` with local timestamp and counts. The archive displays batches and allows deleting one batch; its associated duties and legs are removed through SwiftData relationships.
+
+## Dashboard states
+The dashboard distinguishes active duty, upcoming duty, and no active/upcoming duty. Progress is shown only for an active flight; upcoming flights show their scheduled departure instead of an inaccurate remaining-time value.
+
 ## Testing
-The `AeroshiftTests` target covers overnight parsing, actionable parser issues, duty selection, and in-progress leg selection. Fixtures use synthetic identifiers and routes.
+The `AeroshiftTests` target covers overnight parsing, actionable parser issues, multi-duty grouping, duty selection, and in-progress leg selection. Fixtures use synthetic identifiers and routes.
 
 ## Networking
 No external network calls are required for core functionality. The baseline implementation assumes airplane mode or zero-trust conditions.
@@ -52,4 +59,4 @@ The app is intentionally standalone and unrelated to employment. It has no emplo
 AeroShift is not affiliated with, sponsored by, endorsed by, or developed for FedEx Corporation, its subsidiaries, or any employer. The project must not contain or process employer confidential information, proprietary code, credentials, internal APIs, or operational data.
 
 ## Live Activities status
-ActivityKit attributes and the app-side manager are scaffolded, but the Live Activity widget source is not compiled into the main app target. A dedicated Widget Extension target still needs to be added before lock-screen or Dynamic Island UI can be considered production-ready.
+The project now contains a dedicated Widget Extension target for the lock-screen and Dynamic Island UI. It compiles the shared ActivityKit attributes and brand theme only; roster persistence and network access remain in the app target. Device-level ActivityKit entitlement and presentation testing are still required before calling the surface production-ready.

@@ -5,6 +5,12 @@ import SwiftUI
 import ActivityKit
 #endif
 
+enum DutyPresentationState: Equatable {
+    case active
+    case upcoming
+    case none
+}
+
 @MainActor
 final class DashboardViewModel: ObservableObject {
     
@@ -16,6 +22,11 @@ final class DashboardViewModel: ObservableObject {
         let sortedPeriods = periods.sorted(by: { $0.startDate < $1.startDate })
         return sortedPeriods.first(where: { $0.startDate <= now && $0.endDate >= now })
             ?? sortedPeriods.first(where: { $0.startDate > now })
+    }
+
+    func presentationState(for duty: DutyPeriod?, now: Date = .now) -> DutyPresentationState {
+        guard let duty else { return .none }
+        return duty.startDate <= now && duty.endDate >= now ? .active : .upcoming
     }
 
     func nextLeg(in duty: DutyPeriod?, now: Date = .now) -> FlightLeg? {
