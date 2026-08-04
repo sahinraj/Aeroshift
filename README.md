@@ -11,7 +11,10 @@ AeroShift is not affiliated with, sponsored by, endorsed by, or developed for Fe
 ## Core Features
 - **Offline-first architecture:** All ingestion, persistence, and display workflows operate without network access.
 - **Native SwiftUI dashboard:** iPad-first split-view layout with active duty context and itinerary cards.
-- **Local parsing pipeline:** Raw text imports are parsed in background actors and persisted with SwiftData.
+- **Reviewable local parsing:** Raw text imports are parsed in background actors, reviewed with line-specific issues, and confirmed before SwiftData persistence.
+- **Duplicate-safe ingestion:** Re-importing the same leg skips existing local records instead of creating duplicates.
+- **Local data controls:** Synthetic sample data and delete-all-local-data actions support safe development and privacy-conscious testing.
+- **Test coverage foundation:** Parser and dashboard-selection tests live in a dedicated `AeroshiftTests` target.
 - **Live surfaces foundation:** ActivityKit manager and attribute scaffolding for a future widget extension.
 
 ## Technical Stack
