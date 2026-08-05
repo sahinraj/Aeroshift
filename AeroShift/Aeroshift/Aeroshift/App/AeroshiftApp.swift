@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import Foundation
 
 @main
 struct AeroshiftApp: App {
@@ -20,6 +21,14 @@ struct AeroshiftApp: App {
     
     init() {
         do {
+            if !Self.isRunningTests {
+                let applicationSupportURL = try Self.applicationSupportDirectory()
+                try FileManager.default.createDirectory(
+                    at: applicationSupportURL,
+                    withIntermediateDirectories: true
+                )
+            }
+
             let configuration = ModelConfiguration(isStoredInMemoryOnly: Self.isRunningTests)
             modelContainer = try ModelContainer(
                 for: RosterMonth.self,
@@ -31,6 +40,17 @@ struct AeroshiftApp: App {
         } catch {
             fatalError("Failed to initialize ModelContainer: \(error)")
         }
+    }
+
+    private static func applicationSupportDirectory() throws -> URL {
+        guard let url = FileManager.default.urls(
+            for: .applicationSupportDirectory,
+            in: .userDomainMask
+        ).first else {
+            throw CocoaError(.fileNoSuchFile)
+        }
+
+        return url
     }
     
     var body: some Scene {
